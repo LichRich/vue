@@ -8,8 +8,8 @@
   <body>
     <div id="recommend">
       <!-- v-model : 양방향 데이터 바인딩을 생성. -->
-      <input type="text" placeholder="검색어를 입력하세요." size="50" v-model="recommend" @keyup.enter="search" autofocus>
-      <button type="button" name="button" @click="search">검색</button><br>
+      <input type="text" placeholder="검색어를 입력하세요." size="50" v-model="recommend" @keyup.enter="search()" autofocus>
+      <button type="button" name="button" @click="search()">검색</button><br>
       <div>추천 검색어 : {{recommend}}</div>
       <div>검색결과 : {{results}}</div>
     </div>

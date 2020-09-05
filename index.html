@@ -29,7 +29,13 @@
         <input type="text" v-model="text"><br>
         {{text}}<br>
         <button type="submit" name="button">Submit</button>
-      </form>
+      </form> <br>
+      <!-- about computed : 다음과 같은 경우, 유지보수가 어려워질 수 있음-->
+      <!-- 역순: {{message.split('').reverse().join('')}} -->
+      <!-- 따라서 computed를 활용해 계산을 적용시킨 값을 return한다. -->
+      <p>원본 : "{{message}}"</p>
+      <p>역순 : "{{reversedMessage}}"</p>
+      <button type="button" @click="messageChange">ChangeMessage</button>
     </div>
     <script>
       new Vue({
@@ -43,7 +49,9 @@
           type: 'number',
           link: 'https://www.youtube.com',
           year: 2020,
-          text: "text"
+          text: "text",
+          message: "Hello world!",
+          changed: true,
         },
         methods: {
           nextYear: function(){
@@ -71,7 +79,25 @@
           },
           // changeText(e){
           //   this.text = e.target.value;
-          // }
+          // },
+          messageChange(){
+            if(this.changed){
+              this.message = "GoodBye, World!!";
+            } else{
+              this.message = "Hello, World!!"
+            }
+            this.changed = !this.changed;
+          }
+        },
+        computed: {
+          // 계산이 적용된 결과를 get!!!
+          // computed와 method의 차이?
+          // method는 cache를 사용하지 않으므로 해당하는 코드에 도달했을 때, 계산 결과를 반환한다. 하지만 computed는 cache를 사용하여, Vue 객체가 생성될 때 해당 이름을 가진 변수 값을 계산하여 반환해둔다.
+          // 3회 호출 시, method = 3회 계산, computed = 1회 계산.
+          // message값이 변경되면 실시간으로 반영되어 값이 변경된다.
+          reversedMessage(){
+            return this.message.split('').reverse().join('');
+          }
         }
       })
     </script>
