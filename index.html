@@ -36,6 +36,10 @@
       <p>원본 : "{{message}}"</p>
       <p>역순 : "{{reversedMessage}}"</p>
       <button type="button" @click="messageChange">ChangeMessage</button>
+
+      <p>{{watchMessage}}</p>
+      <button type="button" @click="watchChange">AboutWatch</button><br>
+      <p>{{updated}}</p>
     </div>
     <script>
       new Vue({
@@ -52,6 +56,8 @@
           text: "text",
           message: "Hello world!",
           changed: true,
+          watchMessage: "WhatIsWatch",
+          updated: true,
         },
         methods: {
           nextYear: function(){
@@ -87,6 +93,9 @@
               this.message = "Hello, World!!"
             }
             this.changed = !this.changed;
+          },
+          watchChange(){
+            this.watchMessage = "WatchIs...";
           }
         },
         computed: {
@@ -97,6 +106,13 @@
           // message값이 변경되면 실시간으로 반영되어 값이 변경된다.
           reversedMessage(){
             return this.message.split('').reverse().join('');
+          },
+        },
+        // watch=computed와 유사. 대부분 computed로 사용 가능.
+        watch: {
+          watchMessage(newVal, oldVal){
+            console.log(newVal, oldVal);
+            this.updated = !this.updated;
           }
         }
       })
