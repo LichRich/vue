@@ -7,16 +7,24 @@
   </head>
   <body>
     <div id="app">
-      {{otherMethod("안녕하세요")}}
+      {{otherMethod("안녕하세요")}}<br>
+      <!-- data binding : data를 태그에 연결. v-bind: or : -->
+      <input v-bind:type="type" v-bind:value="inputData"><br>
+      <a :href="link">link_to_youtube</a><br>
+      <!-- function 응용 가능 -->
+      <a :href="linkAdapter('kossiecoder')">this_is_kossiecoder_ch</a>
     </div>
     <script>
       new Vue({
         el: '#app',
         data: {
           person: {
-            name: "hello",
+            name: "name",
             age : 26
-          }
+          },
+          inputData: '23',
+          type: 'number',
+          link: 'https://www.youtube.com'
         },
         methods: {
           nextYear: function(){
@@ -25,6 +33,9 @@
           // function을 지우고 줄여서 사용 가능
           otherMethod(greeting){
             return greeting + "! " + this.nextYear();
+          },
+          linkAdapter(address){
+            return this.link+"/"+address;
           }
         }
       })
