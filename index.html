@@ -3,8 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>Vue basic</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
   <body>
-
+    <div id="app">
+      {{name}}
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          name: "hello"
+        }
+      })
+    </script>
   </body>
 </html>
