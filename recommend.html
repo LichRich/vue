@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>추천검색어 폼만 만들어보자!</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="recommend">
+      <!-- v-model : 양방향 데이터 바인딩을 생성. -->
+      <input type="text" placeholder="검색어를 입력하세요." size="50" v-model="recommend" @keyup.enter="search" autofocus>
+      <button type="button" name="button" @click="search">검색</button><br>
+      <div>추천 검색어 : {{recommend}}</div>
+      <div>검색결과 : {{results}}</div>
+    </div>
+    <script type="text/javascript">
+      new Vue({
+        el: '#recommend',
+        data: {
+          recommend: "",
+          results: "",
+        },
+        methods: {
+          search(){
+            this.results = this.recommend;
+            this.recommend = "";
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

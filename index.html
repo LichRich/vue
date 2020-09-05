@@ -12,7 +12,24 @@
       <input v-bind:type="type" v-bind:value="inputData"><br>
       <a :href="link">link_to_youtube</a><br>
       <!-- function 응용 가능 -->
-      <a :href="linkAdapter('kossiecoder')">this_is_kossiecoder_ch</a>
+      <a :href="linkAdapter('kossiecoder')">this_is_kossiecoder_ch</a><br>
+      <button type="button" onclick="alert('this is just html')">htmlBTN</button>
+      <button v-on:click="alert">AboutEvent</button><br>
+      <!-- button event 응용 -->
+      <p>button event 응용</p>
+      {{year}}<br>
+      <button type="button" name="button" v-on:click="yearInc()">yearIncrease</button>
+      <button type="button" name="button" v-on:click="yearDec()">yearDecrease</button>
+      <!-- another event -->
+      <!-- form = 기본적으로 submit시, page를 reload함. 그래서 순식간에 log가 사라짐 -->
+      <!-- .prevent = preventDefault. js에서 tag의 기본 기능을 막아주는 함수. -->
+      <form v-on:submit.prevent="submit()">
+        <!-- <input type="text" name="" :value="text" @keyup="changeText"><br> -->
+        <!-- 양방향 데이터 바인딩 -->
+        <input type="text" v-model="text"><br>
+        {{text}}<br>
+        <button type="submit" name="button">Submit</button>
+      </form>
     </div>
     <script>
       new Vue({
@@ -24,7 +41,9 @@
           },
           inputData: '23',
           type: 'number',
-          link: 'https://www.youtube.com'
+          link: 'https://www.youtube.com',
+          year: 2020,
+          text: "text"
         },
         methods: {
           nextYear: function(){
@@ -36,7 +55,23 @@
           },
           linkAdapter(address){
             return this.link+"/"+address;
-          }
+          },
+          alert(){
+            alert('hello this is Vue methods');
+          },
+          yearInc(){
+            this.year++;
+          },
+          yearDec(){
+            this.year--;
+          },
+          submit(){
+            alert('submitted');
+            console.log('hello');
+          },
+          // changeText(e){
+          //   this.text = e.target.value;
+          // }
         }
       })
     </script>
