@@ -58,7 +58,26 @@
       <!-- style binding -->
       <div :style="{ color: red, fontSize: size }">안녕~~~~!!!!</div>
       <div :style="styleObj">하세요~~~!!!!</div>
+
+      <!-- v-if 조건문 내에 true가 들어가면 rendering, false면 rendering하지 않음. -->
+      <template v-if="number===0">
+        <div>0</div>
+        <div>when we want to number many items</div>
+        <div>we can use 'template'</div>
+        <div>this shows how it works.</div>
+      </template>
+      <template v-else-if="number===1">
+        <div>1</div>
+        <div>this is else if</div>
+      </template>
+      <div v-else>2</div>
+      <button type="button" @click="numberChange">toggleNumber</button>
+
+      <!-- v-show: false 값이 들어갈 경우, 태그에 display:none이 추가됨. -->
+      <div v-show="show">This is show.</div>
+      <button type="button" @click="toggleShow">toggleShow</button>
     </div>
+
     <script>
       new Vue({
         el: '#app',
@@ -83,7 +102,9 @@
           styleObj: {
             color: 'blue',
             fontSize: '30px',
-          }
+          },
+          number: 0,
+          show: true,
         },
         methods: {
           nextYear: function(){
@@ -126,6 +147,12 @@
           isItRed(){
             this.isRed = !this.isRed;
             this.isBold = !this.isBold;
+          },
+          numberChange(){
+            this.number = (this.number + 1) % 3;
+          },
+          toggleShow(){
+            this.show = !this.show;
           }
         },
         computed: {
