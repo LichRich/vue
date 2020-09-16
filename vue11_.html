@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 기초 익히기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+
+    <!-- 다른 vue 객체에 접근하는 방법 : 여러 vue 인스턴스 사용 -->
+    <div id="app" style="border: 1px solid black">
+      This is app div <br>
+      {{greet}} <br>
+      <button type="button" @click="changeText">Hi button</button>
+    </div>
+    <div id="app_1" style="border: 1px solid black">
+      This is app_1 div <br>
+      {{greet}} <br>
+      <button type="button" @click="changeText">Hello button</button>
+    </div>
+    <hr>
+
+
+    <!-- 동일한 기능을 하는 요소 2개가 반복됨 -->
+    <!-- 중복 제거를 위해 Vue Component 사용 -->
+    <!-- Vue component 이름에 대문자 사용 불가 -->
+    <div id="vue_12_1">
+      <!-- {{name}} <br>
+      <button @click="changeText">Button</button>
+      <br> -->
+      made by Vue Component
+      <name-changer></name-changer>
+    </div>
+    <br>
+    <div id="vue_12_2">
+      <!-- {{name}} <br>
+      <button @click="changeText">Button</button>
+      <br> -->
+      made by Local Vue Component
+      <name-changer2></name-changer2>
+    </div>
+
+
+    <script>
+    // component 내에서 component 사용 가능
+    Vue.component('hello-world', {
+      template: '<div>hello world</div>'
+    });
+    // component 내에서는 요소의 reference가 이용되기 때문에 data를 그대로 갖다 쓰면 해당 component를 사용하는 다른 곳의 요소들 역시 전부 변경되게 되므로 특정 부분에서만 변경을 원하는 경우, function의 형태로 구현해야 한다.
+      Vue.component('name-changer', {
+        template: `
+          <div>
+            {{name}} <br>
+            Component 내에서 component 사용가능 <br>
+            <hello-world></hello-world><br>
+            <button @click="changeText">Button</button>
+          </div>
+        `,
+        data() {
+          return {
+            name: 'Lee'
+          }
+        },
+        methods: {
+          changeText(){
+            this.name = 'ChanHo';
+          }
+        }
+      });
+
+// Instance 내에서의 component 활용을 위한 지역선언(12_2)
+      let nameChanger = {
+        template: `
+          <div>
+            {{name}} <br>
+            Component 내에서 component 사용가능 <br>
+            <hello-world></hello-world><br>
+            <button @click="changeText">Button</button>
+          </div>
+        `,
+        data() {
+          return {
+            name: 'Lee'
+          }
+        },
+        methods: {
+          changeText(){
+            this.name = 'ChanHo';
+          }
+        }
+      };
+
+      var app = new Vue({
+        el: '#app',
+        data: {
+          greet: 'hello',
+        },
+        methods: {
+          changeText(){
+            app1.greet = "Hi, updated by app"
+          }
+        },
+      })
+
+      var app1 = new Vue({
+        el: '#app_1',
+        data: {
+          greet: 'hi'
+        },
+        methods: {
+          changeText(){
+            app.greet = "Hello, updated by app_1";
+          }
+        },
+      })
+
+      const vue12_1 = new Vue({
+        el: '#vue_12_1',
+        // Vue.Component로 대체
+        // data: {
+        //   name: 'Lee'
+        // },
+        // methods: {
+        //   changeText(){
+        //     this.name = 'ChanHo';
+        //   }
+        // },
+      })
+
+      const vue12_2 = new Vue({
+        el: '#vue_12_2',
+        components: {
+          'name-changer2': nameChanger
+        }
+        // data: {
+        //   name: 'Lee'
+        // },
+        // methods: {
+        //   changeText(){
+        //     this.name = 'ChanHo';
+        //   }
+        // },
+      })
+    </script>
+
+  </body>
+</html>

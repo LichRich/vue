@@ -111,10 +111,16 @@
         {{person.name}}: {{person.age}}세
       </div>
 
+      <!-- index를 key로 사용하면 되지 않냐? => 가능은 하나, 추천하지 않음. index는 변화할 수 있기 때문에.  -->
+      <div v-for="(a, index) in people">
+        {{a.name}}: {{index}}번
+      </div>
+      <p>위의 경우, 2번을 지우면, 3번 c와 4번 d가 각각 2번,3번으로 당겨진다.</p>
+
     </div>
 
     <script>
-      new Vue({
+      var vue = new Vue({
         el: '#app',
         data: {
           person: {
